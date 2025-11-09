@@ -1,16 +1,10 @@
-# deckstorm
+# DeckStorm
 
-A new Flutter project.
+Um projeto desenvolvido para ser uma aplicação mobile em flutter, dart e complementação em outras linguagens.
 
-## Getting Started
+O deckstorm é um projeto inspirado em alguns jogos como "Super Trunfo", "Clash royale" e outros jogos de cartas. 
+O objetivo do deckstorm é vencer o opontente em comparações de atributos. 
 
-This project is a starting point for a Flutter application.
+## Início do projeto
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+O projeto está se inciando e criando algumas bases para aprimoramento futuro, iniciando com algumas partes funcionais do app e fazendo com que se tornasse experimentável já na primeira versão. 
