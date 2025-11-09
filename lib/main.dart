@@ -1,8 +1,4 @@
-// DeckStorm - Exemplo completo em Flutter
-// Idioma: PT-BR
-// Arquivo: main.dart
-// Observações: código auto-contido, sem pacotes externos. Coloque imagens de cartas em assets/ se quiser.
-
+// DeckStorm - O protótipo de jogo de cartas estilo Super Trunfo
 import 'dart:math';
 import 'package:flutter/material.dart';
 
@@ -26,14 +22,13 @@ class DeckStormApp extends StatelessWidget {
     );
   }
 }
-
-// --- MODELS ---
+// --- Cartas --- 
 class CardModel {
   final String id;
   final String nome;
   final String descricao;
-  final String imagem; // caminho em assets (opcional)
-  final Map<String, int> atributos; // ex: {'Força': 80, 'Velocidade': 60}
+  final String imagem; 
+  final Map<String, int> atributos;
 
   CardModel({
     required this.id,
@@ -48,45 +43,59 @@ class CardModel {
 List<CardModel> defaultDeck = [
   CardModel(
     id: 'c1',
-    nome: 'Fênix',
-    descricao: 'Uma ave mítica renascida das chamas.',
+    nome: 'Killua',
+    descricao: 'Um assassino prodígio do clã Zoldyck',
     imagem: '',
-    atributos: {'Força': 85, 'Velocidade': 70, 'Inteligência': 60},
+    atributos: {'Poder de ataque': 85, 'Estratégia': 70, 'Resistência': 80, 'Técnica': 95},
   ),
   CardModel(
     id: 'c2',
-    nome: 'Titã',
-    descricao: 'Gigante de força bruta.',
+    nome: 'Levi',
+    descricao: 'Um dos soldados mais habilidosos da humanidade',
     imagem: '',
-    atributos: {'Força': 95, 'Velocidade': 40, 'Inteligência': 45},
+    atributos: {'Poder de ataque': 88, 'Estratégia': 90, 'Resistência': 70, 'Técnica': 98},
   ),
   CardModel(
     id: 'c3',
-    nome: 'Assassino',
-    descricao: 'Rápido e letal nas sombras.',
+    nome: 'Gojo',
+    descricao: 'O feiticeiro mais poderoso do mundo moderno.',
     imagem: '',
-    atributos: {'Força': 60, 'Velocidade': 95, 'Inteligência': 70},
+    atributos: {'Poder de ataque': 97, 'Estratégia': 85, 'Resistência': 95, 'Técnica': 99},
   ),
   CardModel(
     id: 'c4',
-    nome: 'Arcanista',
-    descricao: 'Mestre das artes arcanas.',
+    nome: 'Zoro',
+    descricao: 'Espadachim dos Chapéus de Palha.',
     imagem: '',
-    atributos: {'Força': 40, 'Velocidade': 50, 'Inteligência': 98},
+    atributos: {'Poder de ataque': 95, 'Estratégia': 60, 'Resistência': 90, 'Técnica': 92},
   ),
   CardModel(
     id: 'c5',
-    nome: 'Colosso',
-    descricao: 'Defesa impenetrável.',
+    nome: 'Shikamaru',
+    descricao: 'Um gênio tático preguiçoso.',
     imagem: '',
-    atributos: {'Força': 88, 'Velocidade': 30, 'Inteligência': 50},
+    atributos: {'Poder de ataque': 55, 'Estratégia': 100, 'Resistência': 65, 'Técnica': 85},
   ),
   CardModel(
     id: 'c6',
-    nome: 'Raptor',
-    descricao: 'Predador ágil.',
+    nome: 'Tanjiro',
+    descricao: 'Um caçador de demônios de coração puro.',
     imagem: '',
-    atributos: {'Força': 70, 'Velocidade': 85, 'Inteligência': 55},
+    atributos: {'Poder de ataque': 85, 'Estratégia': 75, 'Resistência': 85, 'Técnica': 85},
+  ),
+   CardModel(
+    id: 'c7',
+    nome: 'Itachi',
+    descricao: 'Um gênio do clã Uchiha.',
+    imagem: '',
+    atributos: {'Poder de ataque': 92, 'Estratégia': 98, 'Resistência': 82, 'Técnica': 97},
+  ),
+   CardModel(
+    id: 'c8',
+    nome: 'Gohan',
+    descricao: 'O guerreiro híbrido que atinge um poder além dos deuses quando luta por aqueles que ama.',
+    imagem: '',
+    atributos: {'Poder de ataque': 99, 'Estratégia': 78, 'Resistência': 95, 'Técnica': 90},
   ),
 ];
 
@@ -186,9 +195,7 @@ class HomeTab extends StatelessWidget {
           Text('Escolha uma das opções abaixo para começar:'),
           SizedBox(height: 20),
           HubButton(label: 'Minhas cartas', icon: Icons.style, onTap: () {
-            // navegar para a aba de Cartas (índice 2)
             DefaultTabController.of(context);
-            // jeito simples: acessar ancestor state
             Navigator.of(context).push(MaterialPageRoute(builder: (_) => CardsTab(
               availableCards: defaultDeck,
               selectedCards: [],
@@ -314,7 +321,7 @@ class _CardsTabState extends State<CardsTab> {
 
 // --- 4) Batalha ---
 class BattleTab extends StatefulWidget {
-  final List<CardModel> playerDeck; // as cartas que o jogador selecionou (até 5)
+  final List<CardModel> playerDeck; 
   BattleTab({required this.playerDeck});
 
   @override
@@ -331,9 +338,7 @@ class _BattleTabState extends State<BattleTab> {
   @override
   void initState() {
     super.initState();
-    // Se o jogador não escolheu cartas, usar um deck padrão (primeiras 5)
     playerCards = widget.playerDeck.isEmpty ? defaultDeck.take(5).toList() : List.from(widget.playerDeck);
-    // Bot tem o mesmo deck padrão (mesmo cards e stats) — por especificação
     botCards = List.from(defaultDeck);
   }
 
@@ -343,7 +348,6 @@ class _BattleTabState extends State<BattleTab> {
       return;
     }
 
-    // bot escolhe aleatoriamente uma carta do seu deck
     final rand = Random();
     final botChoice = botCards[rand.nextInt(botCards.length)];
 
@@ -363,7 +367,6 @@ class _BattleTabState extends State<BattleTab> {
 
     setState(() {
       message = 'Sua carta: ${chosen.nome} (\$atributo: $playerValue)\nBot: ${botChoice.nome} (\$atributo: $botValue)\n$resultado';
-      // remover cartas usadas para evitar repetição
       playerCards.remove(chosen);
       botCards.remove(botChoice);
     });
@@ -455,16 +458,10 @@ class AboutTab extends StatelessWidget {
           SizedBox(height: 12),
           Text('Sobre o DeckStorm', style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
           SizedBox(height: 12),
-          Text('DeckStorm é um protótipo de jogo de cartas baseado no clássico Super Trunfo.\n\nNeste protótipo:')
-        ..split('\n').forEach((_){}),
-          SizedBox(height: 8),
-          Text('- Selecione até 5 cartas na aba "Cartas".'),
-          Text('- Inicie batalhas contra um bot que usa um deck padrão.'),
-          SizedBox(height: 16),
-          Text('Dicas:'),
-          Text('- Você pode ajustar os atributos e imagens das cartas editando o array `defaultDeck` no código.'),
-          SizedBox(height: 24),
-          Text('Versão de demonstração - código aberto para customização.'),
+          Text(
+                'DeckStorm é um protótipo de jogo de cartas baseado no clássico Super Trunfo.\n\n'
+                 style: TextStyle(fontSize: 16),  
+              ),
         ],
       ),
     );
